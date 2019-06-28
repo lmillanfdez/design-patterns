@@ -1,22 +1,19 @@
-namespace design_patterns.DesignPatterns.Singleton
+public class Singleton
 {
-    public class Singleton
-    {
-        private static readonly Singleton _instance = new Singleton();
+    private static readonly Singleton _instance = new Singleton();
 
-        private Singleton(){}
+    private Singleton(){}
 
-        public static Singleton GetInstance 
-        { 
-            get
-            {
-                /* if(_instance == null)
-                    _instance = new Singleton(); */
+    public static Singleton GetInstance 
+    { 
+        get
+        {
+            /* if(_instance == null)
+                _instance = new Singleton(); */
 
-                return _instance;
-            }
+            return _instance;
         }
-
-        public int SomeIntegerField { get; set; }
     }
+
+    public int SomeIntegerField { get; set; }
 }

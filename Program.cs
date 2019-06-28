@@ -1,6 +1,4 @@
-﻿using design_patterns.DesignPatterns.Strategy;
-
-namespace design_patterns
+﻿namespace design_patterns
 {
     class Program
     {

@@ -1,7 +1,4 @@
-namespace design_patterns.DesignPatterns.Adapter
+public class Adapter
 {
-    public class Adapter
-    {
-        
-    }    
-}
+    
+}    
