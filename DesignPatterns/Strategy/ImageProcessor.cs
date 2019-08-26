@@ -6,10 +6,16 @@ using System.Collections.Generic;
 class ImageProcessor
 {
     public enum Filters { UNIFORM_GRAY_SCALE, RED_CHANNEL_GRAY_SCALE };
+    private readonly Dictionary<Filters, IFilter> _filters;
 
     public ImageProcessor()
     {
         SelectedAlgorithm = Filters.UNIFORM_GRAY_SCALE;
+        _filters = new Dictionary<Filters, IFilter>
+        {
+            { Filters.UNIFORM_GRAY_SCALE, new UniformGrayScaleFilter() },
+            { Filters.RED_CHANNEL_GRAY_SCALE, new RGrayScaleFilter() }
+        };
     }
 
     public string ImagePath { get; set; }
@@ -19,12 +25,6 @@ class ImageProcessor
     {
         Bitmap bitmap;        
 
-        var filters = new Dictionary<Filters, IFilter>
-        {
-            { Filters.UNIFORM_GRAY_SCALE, new UniformGrayScaleFilter() },
-            { Filters.RED_CHANNEL_GRAY_SCALE, new RGrayScaleFilter() }
-        };
-        
         try
         {
             using(var fs = new FileStream(ImagePath, FileMode.Open, FileAccess.Read))
@@ -35,7 +35,7 @@ class ImageProcessor
             throw new Exception("It wasn't possible to load the image. Check out the inner exception", exc);
         }
 
-        IFilter filter = filters.GetValueOrDefault(SelectedAlgorithm, new UniformGrayScaleFilter());
+        IFilter filter = _filters.GetValueOrDefault(SelectedAlgorithm, new UniformGrayScaleFilter());
 
         return filter.Process(bitmap);
     }

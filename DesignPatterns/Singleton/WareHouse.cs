@@ -2,11 +2,12 @@ public class WareHouse
 {
     private static readonly WareHouse _instance = new WareHouse();
     
-    private object _locker;
+    private readonly object _locker;
     private int _amount;
 
     private WareHouse()
     {
+        _locker = new object();
         _amount = 0;
     }
 
