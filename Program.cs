@@ -4,7 +4,7 @@
     {
         static void Main(string[] args)
         {
-            ImageProcessorUI.Run();
+            Orchestrator.Run(3, 3);
         }
     }
 }

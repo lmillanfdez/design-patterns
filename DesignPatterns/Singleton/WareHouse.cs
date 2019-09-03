@@ -1,16 +1,16 @@
-public class WareHouse
+class WareHouse : IProducerWareHouse, IConsumerWarehouse
 {
     private static readonly WareHouse _instance = new WareHouse();
     
     private readonly object _locker;
-    private int _amount;
 
     private WareHouse()
     {
         _locker = new object();
-        _amount = 0;
+        Amount = 0;
     }
 
+    public int Amount { get; private set; }
     public static WareHouse GetInstance 
     { 
         get
@@ -23,16 +23,21 @@ public class WareHouse
     {
         lock(_locker)
         {
-            this._amount += amount;
+            this.Amount += amount;
         }
     }
 
-    public void Pull(int amount)
+    public bool Pull(int amount)
     {
         lock(_locker)
         {
-            if(this._amount >= amount)
-                this._amount -= amount;
+            if(this.Amount >= amount)
+            {
+                this.Amount -= amount;
+                return true;
+            }
+
+            return false;
         }
     }
 }
